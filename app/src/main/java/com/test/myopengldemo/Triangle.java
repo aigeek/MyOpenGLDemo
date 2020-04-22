@@ -92,8 +92,8 @@ public class Triangle {
         //);
         //注意 类型是：GL_VERTEX_SHADER
         int fragmentShader = GLUtils.loadShaderAssets(MainActivity.instant,
-            GLES20.GL_FRAGMENT_SHADER,//顶点着色
-            "tri_color_change.frag"//顶点着色 GLSL(GL Shader Language) 代码
+            GLES20.GL_FRAGMENT_SHADER,
+            "tri_color_change.frag"
         );
         //int fragmentShader = GLRenderer.loadShader(
         //    GLES20.GL_FRAGMENT_SHADER,//片元着色
