@@ -79,10 +79,12 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         //设置mOpMatrix为旋转变换
         Matrix.setRotateM(mOpMatrix, 0, 30, 0, 0, -1);
         //使用mOpMatrix对mMVPMatrix进行变换
+        //将mOpMatrix矩阵作用于mViewMatrix上,获得结果矩阵：mMVPMatrix
         Matrix.multiplyMM(
             mMVPMatrix, 0,
             mViewMatrix, 0,
             mOpMatrix, 0);
+        //将mMVPMatrix矩阵作用于mProjectionMatrix上,获得结果矩阵：mMVPMatrix
         Matrix.multiplyMM(
             mMVPMatrix, 0,
             mProjectionMatrix, 0,
@@ -92,6 +94,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         ////结合 相机和投影视图
         //Matrix.multiplyMM(mMVPMatrix,0,mProjectionMatrix,0,mViewMatrix,0);
         //应用 相机和投影转换--->在draw中处理
+        //根据顶点句柄muMVPMatrixHandle，将mMVPMatrix作用在顶点上
         mTriangle.draw(mMVPMatrix);
     }
 }
