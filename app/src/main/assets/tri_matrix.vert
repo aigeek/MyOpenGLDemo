@@ -1,5 +1,5 @@
-#version 120
-
+attribute vec3 vPosition;//顶点坐标
+uniform mat4 uMVPMatrix; //总变换矩阵
 void main() {
-    gl_Position = vec4(vec3(0.0), 1.0);
+    gl_Position = uMVPMatrix*vec4(vPosition,1);
 }

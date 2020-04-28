@@ -63,6 +63,12 @@ public class Triangle {
     //颜色 rgba
     float color[] = {0.63671875f, 0.76953125f, 0.22265625f, 1.0f};
 
+
+
+
+
+
+
     public Triangle(){
 
         /************顶点缓冲************/
@@ -84,16 +90,17 @@ public class Triangle {
         /************渲染器程序************/
         int vertexShader = GLUtils.loadShaderAssets(MainActivity.instant,
             GLES20.GL_VERTEX_SHADER,//顶点着色
-            "tri_color_change.vert"//顶点着色 GLSL(GL Shader Language) 代码
+            "tri_matrix.vert"//顶点着色 GLSL(GL Shader Language) 代码
         );
         //int vertexShader = GLRenderer.loadShader(
         //    GLES20.GL_VERTEX_SHADER,//顶点着色
         //    vertexShaderCode//顶点着色 GLSL(GL Shader Language) 代码
         //);
-        //注意 类型是：GL_VERTEX_SHADER
+
+        //注意 类型是：GL_FRAGMENT_SHADER
         int fragmentShader = GLUtils.loadShaderAssets(MainActivity.instant,
-            GLES20.GL_FRAGMENT_SHADER,//顶点着色
-            "tri_color_change.frag"//顶点着色 GLSL(GL Shader Language) 代码
+            GLES20.GL_FRAGMENT_SHADER,//片元着色
+            "tri.frag"//片元着色 GLSL(GL Shader Language) 代码
         );
         //int fragmentShader = GLRenderer.loadShader(
         //    GLES20.GL_FRAGMENT_SHADER,//片元着色
@@ -105,10 +112,10 @@ public class Triangle {
         GLES20.glLinkProgram(mProgram);//创建可执行的OpenGL ES项目
 
         mPositionHandle = GLES20.glGetAttribLocation(mProgram,"vPosition");//获取顶点着色器的vPosition成员的句柄
-        mVertexColorHandle = GLES20.glGetAttribLocation(mProgram,"aColor");
+        //mVertexColorHandle = GLES20.glGetAttribLocation(mProgram,"aColor");
         ////获取程序中 总变换矩阵uMVPMatrix成员句柄
         ////注意此处是u
-        //muMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram,"uMVPMatrix");
+        muMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram,"uMVPMatrix");
 
 
 
@@ -116,14 +123,20 @@ public class Triangle {
 
 
     /************绘制************/
-    public void draw(){
+
+    /**
+     *
+     * @param mMVPMatrix 结合相机和投影视图的最终视图
+     */
+    public void draw(float[] mMVPMatrix){
         GLES20.glUseProgram(mProgram);//将程序添加到OpenGL ES环境中
         //for 顶点着色器
         GLES20.glEnableVertexAttribArray(mPositionHandle);//启动三角形 顶点的句柄
-        //for 顶点颜色
-        //启用三角形顶点颜色句柄
-        GLES20.glEnableVertexAttribArray(mVertexColorHandle);
-
+        ////for 顶点颜色
+        ////启用三角形顶点颜色句柄
+        //GLES20.glEnableVertexAttribArray(mVertexColorHandle);
+        //应用 相机和投影转换
+        GLES20.glUniformMatrix4fv(muMVPMatrixHandle,1,false,mMVPMatrix,0);
         ////for 变换矩阵
         ////启用三角形顶点颜色句柄
         ////for 顶点矩阵变换
@@ -145,22 +158,22 @@ public class Triangle {
             vertexStride,//int 跨度
             vertexBuffer//java.nio.Buffer 缓冲
         );
-        //准备三角形顶点颜色数据
-        GLES20.glVertexAttribPointer(
-            mVertexColorHandle,
-            COLOR_PER_VERTEX,
-            GLES20.GL_FLOAT,
-            false,
-            vertexColorStride,
-            mVerColorBuffer
-        );
+        ////准备三角形顶点颜色数据
+        //GLES20.glVertexAttribPointer(
+        //    mVertexColorHandle,
+        //    COLOR_PER_VERTEX,
+        //    GLES20.GL_FLOAT,
+        //    false,
+        //    vertexColorStride,
+        //    mVerColorBuffer
+        //);
 
 
 
         //顶点颜色设置变换后，不用再设置颜色
-        ////for 片元着色器
-        //mColorHandle = GLES20.glGetUniformLocation(mProgram,"vColor");//获取片元着色器的vColor成员的句柄
-        //GLES20.glUniform4fv(mColorHandle,1,color,0);//设置三角形颜色
+        //for 片元着色器
+        mColorHandle = GLES20.glGetUniformLocation(mProgram,"vColor");//获取片元着色器的vColor成员的句柄
+        GLES20.glUniform4fv(mColorHandle,1,color,0);//设置三角形颜色
 
 
         //for 绘制
