@@ -76,11 +76,22 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
     /************旋转角度************/
     private int currDeg = 0;
+
+
+    /************z轴坐标************/
+    //translateM-->改变Z轴坐标，数值越大，离我们越远
+    private float distanceZ = 0f;
+
+
     @Override public void onDrawFrame(GL10 gl) {
         //清除颜色缓存和深度缓存
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT| GLES20.GL_DEPTH_BUFFER_BIT);
         //设置mOpMatrix为旋转变换
         Matrix.setRotateM(mOpMatrix, 0, currDeg, 0, 0, -1);
+
+        distanceZ = currDeg/90f;
+        //设置Z轴坐标
+        Matrix.translateM(mOpMatrix,0,0,0,distanceZ);
         //使用mOpMatrix对mMVPMatrix进行变换
         //将mOpMatrix矩阵作用于mViewMatrix上,获得结果矩阵：mMVPMatrix
         Matrix.multiplyMM(
