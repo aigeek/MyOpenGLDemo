@@ -70,13 +70,28 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     /************应用 相机和投影视图************/
     //最终视图--Model View Projection Matrix
     private final float[] mMVPMatrix = new float[16];
+    /************变换矩阵************/
+    //变换矩阵
+    private float[] mOpMatrix = new float[16];
     @Override public void onDrawFrame(GL10 gl) {
         //清除颜色缓存和深度缓存
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT| GLES20.GL_DEPTH_BUFFER_BIT);
-        //结合 相机和投影视图
-        Matrix.multiplyMM(mMVPMatrix,0,mProjectionMatrix,0,mViewMatrix,0);
-        //应用 相机和投影转换--->、在draw中处理
+        //设置mOpMatrix为旋转变换
+        Matrix.setRotateM(mOpMatrix, 0, 30, 0, 0, -1);
+        //使用mOpMatrix对mMVPMatrix进行变换
+        Matrix.multiplyMM(
+            mMVPMatrix, 0,
+            mViewMatrix, 0,
+            mOpMatrix, 0);
+        Matrix.multiplyMM(
+            mMVPMatrix, 0,
+            mProjectionMatrix, 0,
+            mMVPMatrix, 0);
 
+
+        ////结合 相机和投影视图
+        //Matrix.multiplyMM(mMVPMatrix,0,mProjectionMatrix,0,mViewMatrix,0);
+        //应用 相机和投影转换--->在draw中处理
         mTriangle.draw(mMVPMatrix);
     }
 }
