@@ -73,11 +73,14 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     /************变换矩阵************/
     //变换矩阵
     private float[] mOpMatrix = new float[16];
+
+    /************旋转角度************/
+    private int currDeg = 0;
     @Override public void onDrawFrame(GL10 gl) {
         //清除颜色缓存和深度缓存
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT| GLES20.GL_DEPTH_BUFFER_BIT);
         //设置mOpMatrix为旋转变换
-        Matrix.setRotateM(mOpMatrix, 0, 30, 0, 0, -1);
+        Matrix.setRotateM(mOpMatrix, 0, currDeg, 0, 0, -1);
         //使用mOpMatrix对mMVPMatrix进行变换
         //将mOpMatrix矩阵作用于mViewMatrix上,获得结果矩阵：mMVPMatrix
         Matrix.multiplyMM(
@@ -96,5 +99,9 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         //应用 相机和投影转换--->在draw中处理
         //根据顶点句柄muMVPMatrixHandle，将mMVPMatrix作用在顶点上
         mTriangle.draw(mMVPMatrix);
+        currDeg++;
+        if (currDeg == 360){
+            currDeg = 0;
+        }
     }
 }
