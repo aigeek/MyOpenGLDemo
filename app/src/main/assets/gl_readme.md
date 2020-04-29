@@ -21,7 +21,7 @@ GLSL(OpenGL Shader Language)
     - float   浮点型
     - bool    布尔型
     - int     整型
-    - |--- 支持 8进制(0开头)  16进制(0x开头)
+       - 支持 8进制(0开头)  16进制(0x开头)
   - 向量:储存及操作 颜色、位置、纹理坐标等
     - vec2    二维向量型-浮点型
     - vec3    三维向量型-浮点型
@@ -51,13 +51,30 @@ GLSL(OpenGL Shader Language)
   ```
   - 数组
     - vec3 pos[]; //声明不定大小的三维向量数组
-    - vec3 pos[6];//声明6个三维向量数组
+    - vec3 pos\[6];//声明6个三维向量数组
   - 限定符
     - attribute 顶点的变量,如顶点位置，颜色
     - uniform
     - varying 用于从定点着色器传递到片元作色器的变量
     - const
     - precision 精度
-     |--- lowp
-     |--- mediump
-     |--- highp
+      - lowp
+      - mediump
+      - highp
+
+内置函数参考：
+
+[GLSL-内置函数](https://wxdut.com/15271715795286.html)
+
+[GLSL详解（高级篇）](https://colin1994.github.io/2017/11/12/OpenGLES-Lesson05/#%E7%BA%B9%E7%90%86%E6%9F%A5%E6%89%BE%E5%87%BD%E6%95%B0)
+
+[GLSL ES语言规范版本列表](https://www.khronos.org/registry/OpenGL/specs/es/)
+
+Android OpenGL ES和GLSL[版本对应关系](https://github.com/mattdesl/lwjgl-basics/wiki/GLSL-Versions)：
+
+|   OpenGL ES   |   GLSL ES Version   |   link     |
+| ---- | ---- | ---- |
+|   2.0   |   	100   |    [GLSLangSpec.1.10.pdf](https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.1.10.pdf)     |
+|   3.0   |   300   |     [es_spec_3.0](https://www.khronos.org/registry/OpenGL/specs/es/3.0/)    |
+
+

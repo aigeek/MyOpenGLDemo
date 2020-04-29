@@ -12,7 +12,7 @@ import javax.microedition.khronos.opengles.GL;
  */
 public class GLUtils {
     /**
-     * 才脚本中加载shader内容
+     * 在脚本中加载shader内容
      * @param context
      * @param type
      * @param name
