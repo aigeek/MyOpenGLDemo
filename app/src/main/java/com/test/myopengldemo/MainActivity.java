@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         private void init() {
             setEGLContextClientVersion(2);//设置OpenGL ES2.0 context
-            mRenderer = new GLRenderer();
+            mRenderer = new GLRenderer(MainActivity.this);
             setRenderer(mRenderer);//设置渲染器
         }
     }
