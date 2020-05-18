@@ -10,6 +10,7 @@ import javax.microedition.khronos.opengles.GL;
 
 /**
  * Created by yao on 2020 2020/5/14 at 19:27
+ *
  */
 public class TextureRectangle {
     private static final String TAG = TextureRectangle.class.getSimpleName();
@@ -50,12 +51,32 @@ public class TextureRectangle {
     };
 
 
-    //逆时针顺序???纹理数组？
+    ////test
+    //private final float[] textureCoo = {
+    //    0.0f,1.0f,
+    //    1.0f,1.0f,
+    //    1.0f,0.0f
+    //};
+    //// TODO: 2020/5/18 逆时针顺序???纹理坐标//镜像了？？？？
     private final float[] textureCoo = {
         0.0f,0.0f,
         0.0f,1.0f,
         1.0f,1.0f
     };
+    //
+    ////逆时针顺序???纹理坐标-2
+    //private final float[] textureCoo = {
+    //    0.0f,1.0f,
+    //    1.0f,1.0f,
+    //    1.0f,0.0f
+    //};
+
+    ////逆时针顺序???纹理坐标-3
+    //private final float[] textureCoo = {
+    //    1.0f,1.0f,
+    //    1.0f,0.0f,
+    //    0.0f,0.0f
+    //};
 
     //纹理数组中，每个顶点坐标数，2个
     static final int TEXTURE_PER_VERTEX = 2;
@@ -148,7 +169,13 @@ public class TextureRectangle {
             vertexBuffer//java.nio.Buffer 缓冲
         );
 
-        //准备三角形顶点颜色数据---纹理数据相关
+
+        //就是把颜色句柄换成了贴图句柄 再绘制的时候接受一个贴图的id
+        //https://juejin.im/post/5c39af866fb9a049ea392c6e#heading-16
+        //准备三角形顶点颜色数据--->换为纹理数据相关
+        // GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+        //GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texId);两行代码贴图
+        //其余的基本一致，下面最重要的是这个贴图id如何获取
         GLES20.glVertexAttribPointer(
             mColorHandle,
             TEXTURE_PER_VERTEX,
