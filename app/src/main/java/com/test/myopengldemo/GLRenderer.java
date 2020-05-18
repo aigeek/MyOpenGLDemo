@@ -36,7 +36,8 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         //相机视图
         // 模版代码：https://developer.android.com/guide/topics/graphics/opengl.html#coordinate-mapping
         //修改eyeZ可以调整三角形距离屏幕的远近
-        Matrix.setLookAtM(mViewMatrix,0,0,0,-5,0f,0f,0f,0f,1.0f,0.0f);
+        //注意 -5是从z轴从下向上 反方向看，看到的二维图像会左右镜像
+        Matrix.setLookAtM(mViewMatrix,0,0,0,5,0f,0f,0f,0f,1.0f,0.0f);
     }
 
     @Override public void onSurfaceChanged(GL10 gl, int width, int height) {

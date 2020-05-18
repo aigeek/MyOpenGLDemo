@@ -51,34 +51,22 @@ public class TextureRectangle {
         c,c,0.0f//point3//1象限
     };
 
-
-    ////test
-    //private final float[] textureCoo = {
-    //    0.0f,1.0f,
-    //    1.0f,1.0f,
-    //    1.0f,0.0f
-    //};
-    //// TODO: 2020/5/18 逆时针顺序???纹理坐标//镜像了？？？？
+    //// TODO: 2020/5/18 逆时针顺序-纹理坐标
+    // y轴会上下颠倒，可能因为Android系统层对于这个做了处理，所以不能按照标准的opengl坐标系取纹理坐标，按照android的opengles来取就可以了
+    //参考：https://www.jianshu.com/p/a76e6258c251
+    private final float[] textureCoo_1 = {
+        0.0f,1.0f,
+        0.0f,0.0f,
+        1.0f,0.0f,
+        1.0f,1.0f
+    };
+    //// TODO: 2020/5/18 垂直反转/或者认为，左上(0,0)是标准android opengles 纹理原点坐标
     private final float[] textureCoo = {
         0.0f,0.0f,
         0.0f,1.0f,
         1.0f,1.0f,
         1.0f,0.0f
     };
-    //
-    ////逆时针顺序???纹理坐标-2
-    //private final float[] textureCoo = {
-    //    0.0f,1.0f,
-    //    1.0f,1.0f,
-    //    1.0f,0.0f
-    //};
-
-    ////逆时针顺序???纹理坐标-3
-    //private final float[] textureCoo = {
-    //    1.0f,1.0f,
-    //    1.0f,0.0f,
-    //    0.0f,0.0f
-    //};
 
     //纹理数组中，每个顶点坐标数，2个
     static final int TEXTURE_PER_VERTEX = 2;
