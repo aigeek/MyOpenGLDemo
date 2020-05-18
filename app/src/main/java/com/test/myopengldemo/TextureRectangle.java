@@ -47,7 +47,8 @@ public class TextureRectangle {
     static float sCoo[]={//逆时针三角形
         -c,c,0.0f,//point0//2象限
         -c,-c,0.0f,//point1//3象限
-        c,-c,0.0f//point2//4象限
+        c,-c,0.0f,//point2//4象限
+        c,c,0.0f//point3//1象限
     };
 
 
@@ -61,7 +62,8 @@ public class TextureRectangle {
     private final float[] textureCoo = {
         0.0f,0.0f,
         0.0f,1.0f,
-        1.0f,1.0f
+        1.0f,1.0f,
+        1.0f,0.0f
     };
     //
     ////逆时针顺序???纹理坐标-2
@@ -84,7 +86,8 @@ public class TextureRectangle {
 
     //// TODO: 2020/5/14 绘制用的索引，，详见glDrawElements方法（https://glumes.com/post/opengl/opengl-tutorial-gldrawelements-method/）
     private short[] idx = {
-        1,2,3
+        0,1,2,
+        0,2,3
     };
 
 
